@@ -1,0 +1,141 @@
+{
+  "kind": "ssh",
+  "version": "0.1.0",
+  "title": "SSH Diagnostics",
+  "description": "Run allowlisted read-only Linux diagnostics on explicitly pinned SSH hosts, with wallet or authorized agent authentication and bounded redacted output.",
+  "repository_url": "https://github.com/HackInvent/bloxmith-ssh",
+  "bloxsmith_compatibility": [
+    "1.0.9"
+  ],
+  "tested_with_bloxsmith": "1.0.9",
+  "prerequisites": [
+    {
+      "type": "python_distribution",
+      "name": "paramiko",
+      "version": "==5.0.0"
+    },
+    {
+      "type": "manual",
+      "name": "Linux, Python 3.10+, approved SSH host with a non-root diagnostic account and the selected Linux utilities installed."
+    }
+  ],
+  "locales": {
+    "en": "locales/en.json",
+    "fr": "locales/fr.json"
+  },
+  "ports": {
+    "inputs": [
+      {
+        "id": 1,
+        "name": "request",
+        "title": "Diagnostic request",
+        "accepts": [
+          "application/json",
+          "text/plain",
+          "message/*"
+        ],
+        "multiplicity": "one",
+        "required": true,
+        "execution_requirement": "required_for_execution"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1,
+        "name": "result",
+        "title": "Diagnostic result",
+        "emits": [
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 2,
+        "name": "stdout",
+        "title": "Redacted stdout",
+        "emits": [
+          "text/plain",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 3,
+        "name": "stderr",
+        "title": "Redacted stderr",
+        "emits": [
+          "text/plain",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      }
+    ]
+  },
+  "config": {
+    "enabled": false,
+    "hosts": [],
+    "timeout_sec": 30,
+    "connect_timeout_sec": 10,
+    "max_output_bytes": 131072,
+    "agent_socket": "",
+    "redact_emails": true,
+    "redact_secret_refs": []
+  },
+  "port_capabilities": {
+    "can_add_inputs": false,
+    "can_add_outputs": false
+  },
+  "runtime": {
+    "initial_state": "waiting",
+    "runtime_executable": true,
+    "active_worker": true,
+    "centralized_executor": "generic",
+    "centralized_dependency_mode": "any_event",
+    "active_execution_policy": "on_each_event"
+  },
+  "ui_assets": {
+    "modal": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/block_modal.js"
+      }
+    ],
+    "inspector_panel": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/inspector_panel.js"
+      }
+    ],
+    "node_card": [
+      {
+        "kind": "css",
+        "path": "assets/css/node_card.css"
+      }
+    ]
+  }
+}

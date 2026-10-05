@@ -1,0 +1,2 @@
+# Install in the Python environment used by the framework and package hosts.
+paramiko==5.0.0

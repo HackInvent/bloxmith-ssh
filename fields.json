@@ -1,0 +1,61 @@
+[
+  {
+    "key": "enabled",
+    "type": "boolean",
+    "label": "Enable SSH diagnostics",
+    "help": "Off by default. Only an executed request connects; Prepare and opening this form never authenticate."
+  },
+  {
+    "key": "hosts",
+    "type": "json",
+    "label": "Approved hosts and profiles (JSON)",
+    "help": "Array of host objects: id, hostname, port, username, host_key_sha256, auth, credential_ref or agent_key_sha256, commands, paths and services. Profiles: system, uptime, memory, disk, processes, service, journal. See the package README for complete examples; never paste private keys here.",
+    "rows": 12
+  },
+  {
+    "key": "timeout_sec",
+    "type": "integer",
+    "label": "Total request deadline (s)",
+    "help": "Covers connection, authentication and the remote command. Stop closes the local connection; remote process termination cannot be guaranteed.",
+    "min": 1,
+    "max": 120
+  },
+  {
+    "key": "max_output_bytes",
+    "type": "integer",
+    "label": "Maximum bytes per output",
+    "help": "If stdout or stderr exceeds this cap, both partial outputs are discarded before publication.",
+    "min": 1024,
+    "max": 262144
+  },
+  {
+    "key": "redact_emails",
+    "type": "boolean",
+    "label": "Mask email addresses",
+    "help": "Known credentials and credential-like lines are always masked. Pattern matching is not a guarantee of universal anonymization."
+  },
+  {
+    "key": "connect_timeout_sec",
+    "type": "integer",
+    "label": "Connection / authentication deadline (s)",
+    "help": "Per-stage cap within the total deadline. No automatic retries.",
+    "min": 1,
+    "max": 30,
+    "advanced": true
+  },
+  {
+    "key": "agent_socket",
+    "type": "text",
+    "label": "Authorized SSH agent socket",
+    "help": "Only used by hosts with auth=agent and an exact agent_key_sha256. Empty uses SSH_AUTH_SOCK from the runtime environment; no agent forwarding or implicit key search.",
+    "advanced": true
+  },
+  {
+    "key": "redact_secret_refs",
+    "type": "json",
+    "label": "Additional secrets to mask",
+    "help": "Up to eight wallet references containing literal text to redact from both outputs. A locked or missing secret refuses the request before connecting.",
+    "rows": 3,
+    "advanced": true
+  }
+]
